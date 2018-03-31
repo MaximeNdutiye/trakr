@@ -1,0 +1,19 @@
+{
+  "name": "trakr",
+  "version": "0.0.0",
+  "description": "",
+  "author": "somethingweird <asdf12341t3rrqwf@mailinator.com>",
+  "main": "functions/__main__.js",
+  "dependencies": {},
+  "private": true,
+  "stdlib": {
+    "build": "faaslang",
+    "name": "somethingweird/trakr",
+    "timeout": 10000,
+    "publish": true,
+    "personalize": {
+      "keys": [],
+      "user": []
+    }
+  }
+}
