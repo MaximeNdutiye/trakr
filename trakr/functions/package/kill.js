@@ -3,9 +3,10 @@ const MongoClient = require('mongodb').MongoClient;
 let cache = null
 
 /**
+* @param {string} tracking_id
 * @returns {any}
 */
-module.exports = (context, callback) => {
+module.exports = (tracking_id, context, callback) => {
     let uri = process.env['MONGO_KEY'];
     try {
         if (cache === null) {
@@ -16,10 +17,10 @@ module.exports = (context, callback) => {
                 }
                 console.log("Connection successful")
                 cache = db.db("trakr")
-                handler(cache, callback)
+                handler(tracking_id, cache, callback)
               });
         } else {
-            handler(cache, callback)
+            handler(tracking_id, cache, callback)
         }
     } catch (error) {
         console.log(error);
@@ -27,9 +28,17 @@ module.exports = (context, callback) => {
     }
 }
 
-const handler = (db, callback) => {
-    db.collection('packages').find({}, {}).toArray((err, result) => {
-        return callback(null, JSON.stringify(result))
+const handler = (tracking_id, db, callback) => {
+
+    const package_query = {
+        tracking_id: tracking_id
+    }
+
+    db.collection('packages').remove(package_query, (err, result) => {
+        if (err) {
+            return callback(err)
+        } else {
+            return callback(null, result)
+        }
     })
 }
-
