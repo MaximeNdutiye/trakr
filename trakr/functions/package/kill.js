@@ -38,7 +38,7 @@ const handler = (tracking_id, db, callback) => {
         if (err) {
             return callback(err)
         } else {
-            return callback(null, result)
+            return callback(null, JSON.stringify(result))
         }
     })
 }

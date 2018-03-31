@@ -48,5 +48,5 @@ const handler = (tracking_id, carrier_name, note, db, callback) => {
 
     db.collection('packages').insertOne(new_package)
 
-    return callback(null, new_package)
+    return callback(null, JSON.stringify(new_package))
 }
