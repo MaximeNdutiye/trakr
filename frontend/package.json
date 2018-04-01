@@ -2,7 +2,7 @@
   "name": "Trackr",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://maximendutiye.github.io/trakr",
+  "homepage": "http://maximendutiye.github.io/trackr",
   "dependencies": {
     "google-maps-react": "^1.1.11",
     "react": "^15.0.0",
