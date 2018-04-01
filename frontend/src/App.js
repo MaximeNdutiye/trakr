@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from '../src/logo-no-background.png';
+import logo from '../src/logo-no-background-outline.png';
 import './App.css';
 import Map from './components/Map'; 
 
@@ -24,7 +24,7 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        
+        <img className="mainTitle" src={logo}></img>
         <div className="Map-container">
           <div className="sideNav">
             <p className="sideBar-Title">Packages</p>
