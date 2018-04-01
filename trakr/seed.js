@@ -82,8 +82,22 @@ const seed_location_data = {
             longitude: -81.510807
         }
     ],
-    "114": [],
-    "115": [],
+    "114": [
+        {
+            name: "Ottawa",
+            time: genPastDate(),
+            latitude: 45.454642,
+            longitude: -75.759026
+        }
+    ],
+    "115": [
+        {
+            name: "Toronto",
+            time: genPastDate(),
+            latitude: 43.564589,
+            longitude: -79.596258
+        }
+    ],
 }
 
 const uri = "mongodb://root:foobar@cluster0-shard-00-00-921yu.mongodb.net:27017,cluster0-shard-00-01-921yu.mongodb.net:27017,cluster0-shard-00-02-921yu.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin"
