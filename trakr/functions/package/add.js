@@ -8,9 +8,10 @@ let cache = null;
 * @param {string} tracking_id
 * @param {string} carrier_name
 * @param {string} note
+* @param {string} display_name
 * @returns {any}
 */
-module.exports = (tracking_id, carrier_name, note, context, callback) => {
+module.exports = (tracking_id, carrier_name, note, display_name, context, callback) => {
     let uri = process.env['MONGO_KEY'];
     try {
         if (cache === null) {
@@ -21,10 +22,10 @@ module.exports = (tracking_id, carrier_name, note, context, callback) => {
                 }
                 console.log("Connection successful")
                 cache = db.db("trakr")
-                handler(tracking_id, carrier_name, note, cache, callback)
+                handler(tracking_id, carrier_name, note, display_name, cache, callback)
               });
         } else {
-            handler(tracking_id, carrier_name, note, cache, callback)
+            handler(tracking_id, carrier_name, note, display_name, cache, callback)
         }
     } catch (error) {
         console.log(error);
@@ -33,10 +34,11 @@ module.exports = (tracking_id, carrier_name, note, context, callback) => {
 }
 
 
-const handler = (tracking_id, carrier_name, note, db, callback) => {
+const handler = (tracking_id, carrier_name, note, display_name, db, callback) => {
     const new_package = {
         _id: ObjectId.createPk(),
         tracking_id: tracking_id,
+        display_name: display_name,
         locations: [],
         estimate_time_arrival: Faker.date.future(0),
         carrier_name: carrier_name,
@@ -46,7 +48,7 @@ const handler = (tracking_id, carrier_name, note, db, callback) => {
     console.log('[INFO] Inserting:')
     console.log(new_package)
 
-    db.collection('packages').insertOne(new_package)
-
-    return callback(null, JSON.stringify(new_package))
+    db.collection('packages').insertOne(new_package, (err, res) => {
+        return callback(null, JSON.stringify({data: new_package}))
+    })
 }

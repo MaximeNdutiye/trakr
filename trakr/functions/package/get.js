@@ -37,7 +37,10 @@ const handler = (tracking_id, db, callback) => {
 
     db.collection('packages').findOne(package_query, (err, res) => {
         console.log(res)
-        return callback(null, JSON.stringify(res))
+        const data = {
+            data: res
+        }
+        return callback(null, JSON.stringify(data))
     })
 }
 
