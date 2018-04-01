@@ -33,6 +33,13 @@
   margin: 20px;
 }
 
-.App-container{
-  border: 2px solid red; 
+.Map-container{
+  width: 95vw;
+  height: 80vh;
+  display: flex;
+  padding: 10px;
+}
+
+li{
+  list-style-type: none;
 }
