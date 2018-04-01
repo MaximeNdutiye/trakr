@@ -30,14 +30,15 @@
 .map-wrapper{
   width: 50%;
   height: 100%; 
+  box-sizing: border-box;
 }
 
 .Map-container{
-  width: 80%;
   height: 80vh;
   display: flex;
-  padding: 10px;
+  padding: 30px 10px;
   margin:0px;
+  -webkit-box-shadow: 0px 0px 20px -4px rgba(0,0,0,0.75);
 }
 
 packageItem:hover{
@@ -84,4 +85,9 @@ packageItem:hover{
   margin-top:0px;
   font-size: 30px;
   font-weight: bold;
+}
+
+.mainTitle{
+  width: 300px;
+  margin:0px;
 }

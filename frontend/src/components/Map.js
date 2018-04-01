@@ -3,11 +3,16 @@ import {Map, Marker, GoogleApiWrapper} from 'google-maps-react';
 
 
 function MapContainer(props) {
+  
   return (
-    <Map style={style} className="map-wrapper" google={props.google} zoom={14}>
+    <Map  style={style} 
+          center={props.centeredPosition}
+          className="map-wrapper" google={props.google} zoom={6}>
       {props.markers.map(marker => {
-        marker && <Marker name={marker.name} position={marker.position} />
+        console.log(marker)
+        return marker && <Marker title={marker.name} name={marker.name} position={marker.position} />
       })}
+      
     </Map>
   );
 }
@@ -18,7 +23,7 @@ export default GoogleApiWrapper({
 })(MapContainer)
 
 const style = {
-  width: '75%', 
+  width: '71%', 
   height: '80%',
   display: 'fixed'
 }
