@@ -21,16 +21,25 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <h1>Trakr</h1>
-        <h2>Packages</h2>
-        <ul>
-          {this.state.packageList.map(({tracking_id}) => (
-            <li key={tracking_id}>{tracking_id}</li>
-          ))}
-        </ul>
-        <div className="Map-container"> 
-          <Map markers={this.markers()}/>
-        </div> 
+        <h1 className="mainTitle">Trakr</h1>
+        <div className="Map-container">
+          <div className="sideNav">
+            <p className="sideBar-Title">Packages</p>
+            <ul className="packages">
+              {this.state.packageList.map(({tracking_id, carrier_name}) => (
+                <li className="packageItem" key={tracking_id}>
+                  <ul className="packageItemList">
+                    <li className="item">Carrier: {carrier_name}</li>
+                    <li className="item">Id: {tracking_id}</li>
+                  </ul>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div> 
+            <Map markers={this.markers()}/>
+          </div> 
+        </div>
       </div>
     )
   }

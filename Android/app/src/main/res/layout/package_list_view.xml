@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/package_list_root"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="440dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:elevation="30dp"
+    >
+
+    <TextView
+        android:id="@+id/package_list_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your Packages"
+        android:height="60dp"
+        android:elevation="2dp"
+        android:fontFamily="@font/roboto"
+        android:background="@color/secondaryDarkColor"
+        android:textSize="18dp"
+        android:textColor="@android:color/white"
+        android:paddingLeft="12dp"
+        android:gravity="center_vertical"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/package_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/package_list_item"/>
+
+</LinearLayout>
