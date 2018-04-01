@@ -48,10 +48,11 @@ export default class App extends Component {
                 <li 
                   className="packageItem" 
                   key={tracking_id} 
-                  onClick={() => this.setState({
+                  onClick={() => {
+                    this.setState({
                     centeredPosition: locationsToPosition(locations),
                     activeMarker: {id: tracking_id}
-                  })}
+                  })}}
                   id={tracking_id}
                 >
                   <ul className="packageItemList">
