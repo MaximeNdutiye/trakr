@@ -6,9 +6,10 @@
   "main": "functions/__main__.js",
   "dependencies": {
     "faker": "^4.1.0",
-    "uuid": "^3.2.1",
     "lib": "^3.0.1",
-    "mongodb": "^2.2.33"
+    "mongodb": "^2.2.33",
+    "node-fetch": "^2.1.2",
+    "uuid": "^3.2.1"
   },
   "private": true,
   "stdlib": {

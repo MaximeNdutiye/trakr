@@ -6,8 +6,8 @@ let cache = null
 * @param {string} tracking_id
 * @param {string} name
 * @param {number} time
-* @param {number} latitude
-* @param {number} longitude
+* @param {float} latitude
+* @param {float} longitude
 * @returns {any}
 */
 module.exports = (tracking_id, name, time, latitude, longitude, context, callback) => {
