@@ -1,10 +1,11 @@
 {
-  "name": "frontend",
+  "name": "Trakr",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^16.3.0",
-    "react-dom": "^16.3.0",
+    "google-maps-react": "^1.1.11",
+    "react": "^15.0.0",
+    "react-dom": "^15.0.0",
     "react-scripts": "1.1.1"
   },
   "scripts": {
@@ -12,5 +13,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "google-maps": "^3.2.1"
   }
 }
