@@ -109,6 +109,7 @@ MongoClient.connect(uri, (err, db) => {
         data["_id"] = ObjectId.createPk()
         data["locations"] = seed_location_data[data.tracking_id]
         data["estimate_time_arrival"] = Faker.date.future(0)
+        data["_estimate_time_arrival"] = genPastDate()
         return data
     })
 

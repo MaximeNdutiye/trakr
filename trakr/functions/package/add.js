@@ -4,6 +4,10 @@ const ObjectId = require('mongodb').ObjectID
 
 let cache = null;
 
+const genPastDate = () => {
+    return Date.parse(Faker.date.past(0))
+}
+
 /**
 * @param {string} tracking_id
 * @param {string} carrier_name
@@ -41,6 +45,7 @@ const handler = (tracking_id, carrier_name, note, display_name, db, callback) =>
         display_name: display_name,
         locations: [],
         estimate_time_arrival: Faker.date.future(0),
+        _estimate_time_arrival: genPastDate(),
         carrier_name: carrier_name,
         note: note,
     }
