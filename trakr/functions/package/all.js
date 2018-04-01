@@ -29,7 +29,10 @@ module.exports = (context, callback) => {
 
 const handler = (db, callback) => {
     db.collection('packages').find({}, {}).toArray((err, result) => {
-        return callback(null, JSON.stringify(result))
+        const data = {
+            data: result
+        }
+        return callback(null, JSON.stringify(data))
     })
 }
 

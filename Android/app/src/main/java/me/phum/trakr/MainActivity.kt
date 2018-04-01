@@ -1,5 +1,6 @@
 package me.phum.trakr
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.splash_view.*
@@ -8,7 +9,11 @@ import kotlinx.coroutines.experimental.launch
 
 class MainActivity : AppCompatActivity() {
 
+    var packageListAdapter : PackageAdapter? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        val mapIntent = Intent(this, MapActivity::class.java)
+
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         setContentView(R.layout.splash_view)
@@ -24,15 +29,11 @@ class MainActivity : AppCompatActivity() {
             }
             delay(300)
             runOnUiThread {
-                render()
+                startActivity(mapIntent)
+                finish()
             }
         }
 
     }
 
-    fun render() {
-        setContentView(R.layout.activity_main)
-
-
-    }
 }

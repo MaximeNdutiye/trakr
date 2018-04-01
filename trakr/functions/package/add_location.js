@@ -65,7 +65,7 @@ const handler = (tracking_id, name, time, latitude, longitude, db, callback) => 
             if (err) {
                 return callback(err)
             } else {
-                return callback(null, JSON.stringify(new_package_value))
+                return callback(null, JSON.stringify({data: new_package_value}))
             }
 
         })
