@@ -6,7 +6,8 @@ function MapContainer(props) {
   return (
     <Map  style={style} 
           center={props.centeredPosition}
-          google={props.google} zoom={6}>
+          google={props.google} zoom={6}
+          className="map">
       {props.markers.map(marker => {
         console.log(marker)
         return marker && 
@@ -31,5 +32,6 @@ const style = {
   boxsizing: 'border-box',
   width: '72%', 
   height: '80%',
-  display: 'fixed'
+  display: 'fixed',
+  "z-index": "-99"
 }

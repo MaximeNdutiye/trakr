@@ -67,6 +67,10 @@ export default class App extends Component {
         </div>
         <div className="footer">
           <p>Trackr</p>
+          <p>Created by:</p>
+          <a href="https://github.com/Azhng">@Azhang</a><br/>
+          <a href="https://github.com/PatzHum">@PatzHum</a><br/>
+          <a href="https://github.com/MaximeNdutiye">@MaximeNdutiye</a><br/>
         </div>
       </div>
     )

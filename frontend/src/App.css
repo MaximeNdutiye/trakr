@@ -98,6 +98,16 @@ packageItem:hover{
 }
 
 .footer{
+  margin: 100px 0px;
   text-align: center;
   padding: 30px;
+}
+
+.map{
+  z-index:-1;
+}
+
+a{
+  text-decoration: none;
+  color: gray;
 }
