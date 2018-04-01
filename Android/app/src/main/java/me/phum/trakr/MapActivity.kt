@@ -156,6 +156,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         val volleyQueue = Volley.newRequestQueue(this)
         val stringRequest = StringRequest(Request.Method.GET, "https://somethingweird.lib.id/trakr@dev/package/all/", { response ->
+            Log.d("resp", response)
             val gson = Gson()
             val resp = gson.fromJson(gson.fromJson(response, String::class.java), SchemaResponse::class.java)
             val packList = ArrayList<Pack>()
@@ -178,6 +179,11 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         })
 
         volleyQueue.add(stringRequest)
+
+        locate_me.setOnClickListener {
+            getLocationPermission()
+            bottomSheetBehaviour.state = BottomSheetBehavior.STATE_COLLAPSED
+        }
 
     }
 

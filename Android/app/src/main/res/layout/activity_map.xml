@@ -25,6 +25,15 @@
             app:srcCompat="@drawable/logo_no_background_outline" />
     </FrameLayout>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/locate_me"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="0dp"
+        android:src="@drawable/ic_my_location_black_24dp"
+        app:layout_anchor="@+id/bottom_sheet"
+        app:layout_anchorGravity="top|end" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
