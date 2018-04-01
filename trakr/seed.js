@@ -65,7 +65,14 @@ const seed_location_data = {
             longitude: -117.732857
         }
     ],
-    "113": [],
+    "113": [
+        {
+            name: "Kitchener",
+            time: Faker.date.past(0),
+            latitude: 27.092760,
+            longitude: -81.510807
+        }
+    ],
     "114": [],
     "115": [],
 }
