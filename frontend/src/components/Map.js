@@ -11,7 +11,7 @@ function MapContainer(props) {
         console.log(marker)
         return marker && 
           <Marker 
-            title={marker.title} 
+            title= {marker.name}
             name={marker.name} 
             id={marker.id}
             onClick={marker.onMarkerClick}

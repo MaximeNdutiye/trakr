@@ -74,7 +74,10 @@ export default class App extends Component {
   
   markers = () => {
     return this.state.packageList.map(pkg => ({
-      name: pkg.name,
+      name: 
+        "Package: " + pkg.tracking_id +  
+        ", To: " + pkg.locations[0].name + 
+        ", Carrier " + pkg.carrier_name,
       title: pkg.name,
       id: pkg.tracking_id,
       position: locationsToPosition(pkg.locations),
