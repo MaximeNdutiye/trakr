@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.package_list_item.view.*
-import me.phum.trakr.schema.Pack
+import me.phum.trakr.data.Pack
 
 /**
  * Created by patri on 2018-03-31.
@@ -26,11 +26,11 @@ class PackageAdapter(val dataset : List<Pack>) : RecyclerView.Adapter<PackageAda
             itemClickListener?.onItemSelect(pack)
         }
         holder.imageTrackIcon.setColorFilter(Color.HSVToColor(arrayOf(pack.hue, 255f, 255f).toFloatArray()))
-        holder.label.text = "No Label."
-        holder.eta.text = "Arriving: ${pack.getFormattedArrivalTime()}"
-        holder.lastLocation.text = "Currently In ${pack.location.last().name}"
-        holder.trackingId.text = "${pack.trackingId}"
-    }
+            holder.label.text = "${pack.name}"
+            holder.eta.text = "Arriving: ${pack.getFormattedArrivalTime()}"
+            holder.lastLocation.text = "Currently In ${pack.location.last().name}"
+            holder.trackingId.text = "${pack.trackingId}"
+        }
 
     override fun getItemCount() = dataset.size
 

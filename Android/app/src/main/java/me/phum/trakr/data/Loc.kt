@@ -1,4 +1,4 @@
-package me.phum.trakr.schema
+package me.phum.trakr.data
 
 import com.google.android.gms.maps.model.LatLng
 import java.io.Serializable

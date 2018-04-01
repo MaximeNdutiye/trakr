@@ -1,6 +1,5 @@
 package me.phum.trakr
 
-import android.animation.Animator
 import android.animation.ArgbEvaluator
 import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
@@ -20,17 +19,20 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.package_list_view.*
-import me.phum.trakr.schema.Loc
-import me.phum.trakr.schema.Pack
+import me.phum.trakr.data.Loc
+import me.phum.trakr.data.Pack
 import android.support.v4.app.ActivityCompat
 import android.content.pm.PackageManager
 import android.location.Location
-import android.support.annotation.NonNull
 import android.util.Log
+import com.android.volley.Request
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_map.*
 import kotlinx.android.synthetic.main.info_panel.*
 import kotlinx.coroutines.experimental.delay
@@ -40,6 +42,7 @@ import kotlinx.coroutines.experimental.launch
 class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
+
     private lateinit var bottomSheetBehaviour: BottomSheetBehavior<LinearLayout>
     private var lastKnownLocation : Location? = null
     var packageListAdapter : PackageAdapter? = null
@@ -49,25 +52,26 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
             BitmapDescriptorFactory.HUE_ORANGE,
             BitmapDescriptorFactory.HUE_VIOLET,
             BitmapDescriptorFactory.HUE_YELLOW)
-    var packageList = listOf<Pack>(
-            Pack("0000-0000-0001", listOf(
+
+    var packageList = ArrayList(listOf<Pack>(
+            Pack("t0","0000-0000-0001", listOf(
                     Loc("Toronto", 0, 45.4187698,-75.6917538)
             ), 1525200919949, "Canada Post", "", HUES.shuffled().first()),
-            Pack("0000-0000-0001", listOf(
+            Pack("t1", "0000-0000-0001", listOf(
                     Loc("Toronto", 0, 50.733797,  -83.181364)
             ), 1525200919949, "Canada Post", "", HUES.shuffled().first()),
-            Pack("0000-0000-0001", listOf(
+            Pack("t2", "0000-0000-0001", listOf(
                     Loc("Toronto", 0, 42.674930, -73.870623)
             ), 1525200919949, "Canada Post", "", HUES.shuffled().first()),
-            Pack("0000-0000-0001", listOf(
+            Pack("t3", "0000-0000-0001", listOf(
                     Loc("Toronto", 0, 34.634091,  -117.726935)
             ), 1525200919949, "Canada Post", "", HUES.shuffled().first()),
-            Pack("0000-0000-0001", listOf(
+            Pack("t4", "0000-0000-0001", listOf(
                     Loc("Toronto", 0, 45.117508, -117.732857)
             ), 1525200919949, "Canada Post", "", HUES.shuffled().first()),
-            Pack("0000-0000-0001", listOf(
+            Pack("t5", "0000-0000-0001", listOf(
                     Loc("Toronto", 0, 27.092760, -81.510807)
-            ), 1525200919949, "Canada Post", "", HUES.shuffled().first())
+            ), 1525200919949, "Canada Post", "", HUES.shuffled().first()))
     )
 
     val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 5
@@ -149,6 +153,32 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         package_list.adapter = packageListAdapter
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         info_panel_root.visibility = View.GONE
+
+        val volleyQueue = Volley.newRequestQueue(this)
+        val stringRequest = StringRequest(Request.Method.GET, "https://somethingweird.lib.id/trakr@dev/package/all/", { response ->
+            val gson = Gson()
+            val resp = gson.fromJson(gson.fromJson(response, String::class.java), SchemaResponse::class.java)
+            val packList = ArrayList<Pack>()
+            resp.data.forEachIndexed { index, it ->
+                val locList = ArrayList<Loc>()
+                it.locations.forEach {
+                    locList.add(Loc(it.name, it.time, it.latitude, it.longitude))
+                }
+                val pack = Pack(it.display_name, it.tracking_id, locList, it._estimate_time_arrival, it.carrier_name, it.note, HUES[index % HUES.size])
+                packList.add(pack)
+            }
+            packageList.clear()
+            packageList.addAll(packList)
+            runOnUiThread {
+                packageListAdapter?.notifyDataSetChanged()
+                updatePackageList()
+            }
+        }, { error ->
+            Log.e("VOLLEY_ERROR", error.message)
+        })
+
+        volleyQueue.add(stringRequest)
+
     }
 
     override fun onBackPressed() {
@@ -179,7 +209,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                             info_panel_root.alpha = 0f
                         }
                         info_panel_root.visibility = View.VISIBLE
-                        ip_label.text = "Shoes"
+                        ip_label.text = "${pack.name}"
                         ip_eta.text = "Arriving: ${pack.getFormattedArrivalTime()}"
                         ip_last_location.text = "Currently In ${pack.location.last().name}"
                         ip_track_id.text = "${pack.trackingId}"
@@ -199,6 +229,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                     }
                     delay(500)
                     runOnUiThread {
+                        mMap.animateCamera(CameraUpdateFactory.zoomTo(10f))
                         package_list_root.visibility = View.GONE
                         bottomSheetBehaviour.state = BottomSheetBehavior.STATE_EXPANDED
                     }
@@ -222,6 +253,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
                 delay(250)
                 runOnUiThread {
+                    mMap.animateCamera(CameraUpdateFactory.zoomTo(5f))
                     info_panel_root.visibility = View.GONE
                     if (package_list_root.visibility != View.VISIBLE) {
                         package_list_root.alpha = 0f
@@ -237,15 +269,19 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
 
+        updatePackageList()
+    }
 
+    fun updatePackageList() {
+        mMap.clear()
+        currentLocationmarker = null
         packageList.forEachIndexed {index, it ->
-           val marker =  mMap.addMarker(
+            val marker =  mMap.addMarker(
                     MarkerOptions()
                             .position(it.lastKnownLocation.getLatLng())
-                            .title(it.trackingId)
+                            .title(it.name)
                             .icon(BitmapDescriptorFactory.defaultMarker(it.hue))
-                            .title(it.trackingId)
-                            .snippet(it.carrierName)
+                            .snippet(it.carrierName + ", Arriving " + it.getFormattedArrivalTime())
 
             )
             marker.tag = index
