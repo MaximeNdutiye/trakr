@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "http://maximendutiye.github.io/trackr",
   "dependencies": {
+    "dotenv": "^5.0.1",
     "google-maps-react": "^1.1.11",
     "react": "^15.0.0",
     "react-dom": "^15.0.0",

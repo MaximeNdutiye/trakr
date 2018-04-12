@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from '../src/logo-no-background-outline.png';
 import './App.css';
 import Map from './components/Map'; 
+require('dotenv').config();
 
 export default class App extends Component {
   
